@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
-# Create your views here.
-# Processar os requests e gerar o response
 def index(request):
-    return HttpResponse("Hello, world. You're at the challenges index.")
+    return HttpResponse("Bem-vindo ao site de desafios!")
+
+def indexf(request):
+    return HttpResponse("Bem-vindos a Fevereiro")
