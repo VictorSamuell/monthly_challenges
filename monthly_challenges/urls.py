@@ -20,7 +20,7 @@ from challenges import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('challenges/', include('challenges.urls')),
-    path('', views.index, name='index'),
+    # path('', views.index, name='index'),
     # your url patterns here
 
 ]
