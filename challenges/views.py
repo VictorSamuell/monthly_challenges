@@ -1,50 +1,39 @@
 from django.shortcuts import render
-from django.http import HttpResponse , HttpResponseNotFound
+from django.http import HttpResponse , HttpResponseNotFound , HttpResponseRedirect
+from django.urls import reverse
 
-# def index(request):
-#     return HttpResponse("Bem-vindo ao site")
+monthly_challenges = {
+    "january": "Bem-vindo a Janeiro",
+    "february": "Bem-vindo a Fevereiro",
+    "march": "Bem-vindo a Março",
+    "april": "Bem-vindo a Abril",
+    "may": "Bem-vindo a Maio",
+    "june": "Bem-vindo a Junho",
+    "july": "Bem-vindo a Julho",
+    "august": "Bem-vindo a Agosto",
+    "september": "Bem-vindo a Setembro",
+    "october": "Bem-vindo a Outubro",
+    "november": "Bem-vindo a Novembro",
+    "december": "Bem-vindo a Dezembro",
+}
 
-# def january_view(request):
-#     return HttpResponse("Bem-vindos a Janeiro")
 
-# def february_view(request):
-#     return HttpResponse("Bem-vindos a Fevereiro")
+def monthly_challenge_by_number(request, month):
 
-# def march_view(request):
-#     return HttpResponse("Bem-vindos a Março")
-
-# def april_view(request):
-#     return HttpResponse("Bem-vindos a Abril")
-
-# def may_view(request):
-#     return HttpResponse("Bem-vindos a Maio")
+    months = list(monthly_challenges.keys())
+    
+    if month > len(months):
+        return HttpResponseNotFound("Mês Inválido")
+    
+    redirect_month = months[month - 1]
+    redirect_path = reverse("month-challenge", args=[redirect_month]) # /challenge/january
+    return HttpResponseRedirect("/challenges/"+ redirect_month)
+    
 
 def monthly_challenge(request, month):
-    challenge_text = None
-    if month == "january":
-        challenge_text = "Bem-vindo a Janeiro"
-    elif month == "february":
-        challenge_text = "Bem-vindo a Fevereiro"
-    elif month == "march":
-        challenge_text = "Bem-vindo a Março"
-    elif month == "april":
-        challenge_text = "Bem-vindo a Abril"
-    elif month == "may":
-        challenge_text = "Bem-vindo a Maio"
-    elif month == "june":
-        challenge_text = "Bem-vindo a Junho"
-    elif month == "july":
-        challenge_text = "Bem-vindo a Julho"
-    elif month == "august":
-        challenge_text = "Bem-vindo a Agosto"
-    elif month == "september":
-        challenge_text = "Bem-vindo a Setembro"
-    elif month == "october":
-        challenge_text = "Bem-vindo a Outubro"
-    elif month == "november":
-        challenge_text = "Bem-vindo a Novembro"
-    elif month == "december":
-        challenge_text = "Bem-vindo a Dezembro"
-    else:
-        return HttpResponseNotFound("Mês inválido")
-    return HttpResponse(challenge_text)
+    try:
+        challenge_text = monthly_challenges[month]
+        return HttpResponse(challenge_text)
+    except:
+        return HttpResponseNotFound("Mês Inválido")
+    
