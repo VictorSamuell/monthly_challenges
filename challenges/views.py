@@ -19,17 +19,21 @@ monthly_challenges = {
 }
 
 def index(request):
-    list_items = ""
     months = list(monthly_challenges.keys())
     
-    for month in months:
-        capitalized_month = month.capitalize()
-        month_path = reverse("month-challenge", args=[month])
-        list_items += f"<li><a href=\"{month_path}\">{capitalized_month}</a></li>"
+    return render(request, "challenges/index.html", {
+        "months": months
+    })  
+    
+    #     for month in months:
+    # capitalized_month = month.capitalize()
+    # month_path = reverse("month-challenge", args=[month])
+    # list_items += f"<li><a href=\"{month_path}\">{capitalized_month}</a></li>"
+    # response_data = f"<ul>{list_items}</ul>"  
+    # return HttpResponse(response_data)
+
     
     
-    response_data = f"<ul>{list_items}</ul>"  
-    return HttpResponse(response_data)
 
 
 def monthly_challenge_by_number(request, month):
@@ -38,6 +42,7 @@ def monthly_challenge_by_number(request, month):
     
     if month > len(months):
         return HttpResponseNotFound("Mês Inválido")
+
     
     redirect_month = months[month - 1]
     redirect_path = reverse("month-challenge", args=[redirect_month]) # /challenge/january
@@ -54,5 +59,5 @@ def monthly_challenge(request, month):
             })
         return HttpResponse(response_data)
     except Exception as e:  # para retornar o erro
-        return HttpResponseNotFound(f"<h1>Erro: {str(e)}</h1>")
+        return HttpResponseNotFound(f"<h1> Erro: {str(e)}</h1>")
     
