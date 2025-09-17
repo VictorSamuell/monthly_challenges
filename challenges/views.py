@@ -15,7 +15,7 @@ monthly_challenges = {
     "september": "Bem-vindo a Setembro",
     "october": "Bem-vindo a Outubro",
     "november": "Bem-vindo a Novembro",
-    "december": "Bem-vindo a Dezembro",
+    "december": None,
 }
 
 def index(request):
@@ -32,8 +32,6 @@ def index(request):
     # response_data = f"<ul>{list_items}</ul>"  
     # return HttpResponse(response_data)
 
-    
-    
 
 
 def monthly_challenge_by_number(request, month):

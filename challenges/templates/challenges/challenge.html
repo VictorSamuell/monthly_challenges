@@ -1,74 +1,62 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> {{ month_name|title }} Challenge </title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            color: #2c3e50;
-            padding: 40px;
-            text-align: center;
-        }
+{% block page_title %}{{ month_name|title }} Challenge{% endblock %}
 
-        h1 {
-            font-size: 2.5em;
-            margin-bottom: 20px;
-            color: #3498db;
-        }
+{% block extra_styles %}
+<style>
+    body{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    h1 {
+        font-size: 2.5em;
+        margin-bottom: 20px;
+        color: #3498db;
+        text-align: center;
+    }
 
-        h2 {
-            font-size: 1.5em;
-            background-color: #ffffff;
-            display: inline-block;
-            padding: 20px 30px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-            max-width: 80%;
-            line-height: 1.5;
-        }
+    h2 {
+        font-size: 1.5em;
+        background-color: #ffffff;
+        display: inline-block;
+        padding: 20px 30px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        max-width: 80%;
+        line-height: 1.5;
+    }
 
-        a.button {
-            display: inline-block;
-            background-color: #3498db;
-            color: white;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            margin-top: 30px;
-            transition: background-color 0.3s;
-        }
+    a.button {
+        display: inline-block;
+        background-color: #3498db;
+        color: white;
+        padding: 10px 20px;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        margin-top: 30px;
+        transition: background-color 0.3s;
+    }
 
-        a.button:hover {
-            background-color: #2c80b4;
-        }
+    a.button:hover {
+        background-color: #2c80b4;
+    }
+</style>
+{% endblock %}
 
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 2em;
-            }
+{% block content %}
 
-            h2 {
-                font-size: 1.2em;
-                padding: 15px 20px;
-            }
-        }
-    </style>
-</head>
+    {% include "./includes/header.html" with active_page="challenge" %}
 
-<body>
-    <!-- {{ value|title }} -->
-    <h1> {{ month_name|title }} Challenge</h1>
-    <h2> {{ text }} </h2>
+    <h1>{{ month_name|title }} Challenge</h1>
+
+    {% if text %}
+        <h2>{{ text }}</h2>
+    {% else %}
+        <h2>Desafio não encontrado!</h2>
+    {% endif %}
 
     <br><br>
     <a href="{% url 'index' %}" class="button">← Voltar para todos os desafios</a>
-    
-</a>
-</body>
-
-</html>
+{% endblock %}
