@@ -1,50 +1,17 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block css_files %}
+    <link rel="stylesheet" href="{% static "challenges/index.css" %}">
+    <link rel="stylesheet" href="{% static "challenges/includes/header.css" %}">
+{% endblock %}
 
 {% block page_title %}Challenge List{% endblock %}
 
-{% block extra_styles %}
-<style>
-    h1 {
-        text-align: center;
-        margin-bottom: 30px;
-        color: #2c3e50;
-    }
-
-    ul {
-        list-style: none;
-        max-width: 500px;
-        margin: 0 auto;
-        padding: 0;
-    }
-
-    li {
-        background-color: #ffffff;
-        margin-bottom: 10px;
-        padding: 15px 20px;
-        border-radius: 5px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-        transition: transform 0.2s ease;
-    }
-
-    li:hover {
-        transform: scale(1.02);
-    }
-
-    a {
-        text-decoration: none;
-        color: #3498db;
-        font-weight: bold;
-    }
-
-    a:hover {
-        color: #1d6fa5;
-    }
-</style>
-{% endblock %}
 
 {% block content %}
-    {% include "./includes/header.html" with active_page="index" %}
-
+    {% include "./includes/header.html" with active_page="index" %} 
+    {% comment %} with active_page="index" {% endcomment %}
     <h1>Desafios do Ano</h1>
     <ul>
         {% for month in months %}
