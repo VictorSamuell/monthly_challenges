@@ -1,7 +1,8 @@
 from django.shortcuts import render
-from django.http import HttpResponse , HttpResponseNotFound , HttpResponseRedirect
+from django.http import Http404, HttpResponse , HttpResponseNotFound , HttpResponseRedirect
 from django.urls import reverse
 from django.template.loader import render_to_string
+
 
 monthly_challenges = {
     "january": "Bem-vindo a Janeiro",
@@ -14,7 +15,7 @@ monthly_challenges = {
     "august": "Bem-vindo a Agosto",
     "september": "Bem-vindo a Setembro",
     "october": "Bem-vindo a Outubro",
-    "november": "Bem-vindo a Novembro",
+    "november": "Corra 20 minutos todo dia",
     "december": None,
 }
 
@@ -32,15 +33,12 @@ def index(request):
     # response_data = f"<ul>{list_items}</ul>"  
     # return HttpResponse(response_data)
 
-
-
 def monthly_challenge_by_number(request, month):
 
     months = list(monthly_challenges.keys())
     
     if month > len(months):
         return HttpResponseNotFound("<h1> Mês Inválido </h1>")
-
     
     redirect_month = months[month - 1]
     redirect_path = reverse("month-challenge", args=[redirect_month]) # /challenge/january
@@ -57,5 +55,5 @@ def monthly_challenge(request, month):
             })
         return HttpResponse(response_data)
     except Exception as e:  # para retornar o erro
-        return HttpResponseNotFound(f"<h1> Erro: {str(e)}</h1>")
+        raise Http404()
     
